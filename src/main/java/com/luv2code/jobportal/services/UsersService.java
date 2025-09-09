@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.Optional;
 
+import static org.springframework.security.core.context.SecurityContextHolder.getContext;
+
 @Service
 public class UsersService {
     private final UsersRepository usersRepository;
@@ -59,7 +61,7 @@ public class UsersService {
     }
 
     public Object getCurrentUserProfile() {
-        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication= getContext().getAuthentication();
         if(!(authentication instanceof AnonymousAuthenticationToken)){
             String username =authentication.getName();
            Users users= usersRepository.findByEmail(username).orElseThrow(
@@ -72,5 +74,16 @@ public class UsersService {
            }
         }
         return null;
+    }
+
+    public Users getCurrentUser() {
+        Authentication authentication=SecurityContextHolder.getContext().getAuthentication();
+        if(!(authentication instanceof  AnonymousAuthenticationToken)){
+           String userName= authentication.getName();
+            Users users= usersRepository.findByEmail(userName).orElseThrow(
+                    ()->new UsernameNotFoundException("Could not Found user"));
+            return  users;
+        }
+        return  null;
     }
 }
