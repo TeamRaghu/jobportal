@@ -13,24 +13,28 @@ public class RecruiterProfile {
     @MapsId
     private Users userId;
     private String city;
-    private String Country;
+    private String country;
+    private String company;
     private String state;
     private String firstName;
     private String lastName;
 
-    @Column(nullable = true,length = 64)
-    private  String profilePhoto;
-
-    public RecruiterProfile(int userAccountId, Users userId, String city, String country, String state, String firstName, String lastName, String profilePhoto) {
+    public RecruiterProfile(int userAccountId, Users userId, String city, String country, String company, String state, String firstName, String lastName, String profilePhoto) {
         this.userAccountId = userAccountId;
         this.userId = userId;
         this.city = city;
-        Country = country;
+        this.country = country;
+        this.company = company;
         this.state = state;
         this.firstName = firstName;
         this.lastName = lastName;
         this.profilePhoto = profilePhoto;
     }
+
+    @Column(nullable = true,length = 64)
+    private  String profilePhoto;
+
+
 
     public RecruiterProfile(Users users) {
     this.userId=users;
@@ -65,11 +69,11 @@ public class RecruiterProfile {
     }
 
     public String getCountry() {
-        return Country;
+        return country;
     }
 
     public void setCountry(String country) {
-        Country = country;
+        this.country = country;
     }
 
     public String getState() {
@@ -99,9 +103,21 @@ public class RecruiterProfile {
     public String getProfilePhoto() {
         return profilePhoto;
     }
-
+@Transient
+    public String getPhotosImagePath(){
+        if(profilePhoto==null) return  null;
+        return "/photos/recruiter/"+userAccountId+"/"+profilePhoto;
+    }
     public void setProfilePhoto(String profilePhoto) {
         this.profilePhoto = profilePhoto;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 
     @Override
@@ -110,7 +126,8 @@ public class RecruiterProfile {
                 "userAccountId=" + userAccountId +
                 ", userId=" + userId +
                 ", city='" + city + '\'' +
-                ", Country='" + Country + '\'' +
+                ", country='" + country + '\'' +
+                ", company='" + company + '\'' +
                 ", state='" + state + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

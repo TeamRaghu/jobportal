@@ -71,13 +71,25 @@
             </li>
 
         </ul>
+        <img
+                class="rounded-circle me-3"
+                height="50px"
+                width="50x"
+                th:if="${user.photosImagePath!=null}"
+                th:src="@{${user?.photosImagePath}}"
+        />
+
+
+
 <!--        <label-->
+<!--            th:if="${user.firstName!=null && user.lastname !=null}"-->
 <!--               th:text="${user.firstName+' '+user.lastName}"-->
 <!--               class="nav-item nav-link px-2 me-3">-->
+
 <!--        </label>-->
 
-        <label th:text="${username}"
-               class="nav-item nav-link px-2 me-3"></label>
+<!--        <label  th:unless="${user.firstName!=null && user.lastname !=null}" th:text="${username}"-->
+<!--               class="nav-item nav-link px-2 me-3"></label>-->
 
         <button class="myBtn-light me-5" onclick="window.location.href='/logout'">Logout</button>
     </div>

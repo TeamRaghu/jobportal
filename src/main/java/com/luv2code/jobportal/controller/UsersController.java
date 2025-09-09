@@ -52,7 +52,7 @@ private final UsersService usersService;
             usersService.addNewUser(users);
         //System.out.println("User: "+users);
 
-        return "dashboard";
+        return "redirect:/dashboard/";
 
     }
 
